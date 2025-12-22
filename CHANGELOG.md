@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `kickass/list.asm`, `Kickass_List_DumpBytesToCode` and `Kickass_List_DumpWordsToCode` - 
   new macros for dumping KickAssembler lists as bytes or words to the code
 
+### Fixed
+- Version checking function, previously failed to parse the version provided version string.
+
 ## [0.1.0] - 2024-08-17
 
 Initial public release.

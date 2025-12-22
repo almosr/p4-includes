@@ -24,7 +24,7 @@
  * @param version required minimum version as string.
  **/
 .function P4Includes_Version_AtLest(version) {
-    .var split = Kickass_String_Split(version, '.')
+    .var split = Kickass_String_Split(version, ".")
     .var parts = List()
     .if (split.size() != 3) .error "Invalid version string, must consists of three parts delimited by dot (.), actual: " + version
     .for(var i = 0; i < 3; i++) {
