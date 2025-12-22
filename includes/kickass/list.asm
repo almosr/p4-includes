@@ -67,3 +67,21 @@
         .word wordList.get(i)
     }
 }
+
+/**
+ * Dumps word list items into code into two separate sets for low and high byte.
+ * These can be accessed as `.lo` and `.hi` appended to the label at the macro call position.
+ *
+ * @param wordList list to dump into code.
+ **/
+.macro Kickass_List_DumpWordsLowHighToCode(wordList) {
+    .label lo = *
+    .for(var i = 0; i < wordList.size(); i++) {
+        .byte wordList.get(i) & 255
+    }
+
+    .label hi = *
+    .for(var i = 0; i < wordList.size(); i++) {
+        .byte floor(wordList.get(i) / 256)
+    }
+}
