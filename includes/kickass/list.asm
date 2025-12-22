@@ -45,3 +45,25 @@
 
     .return list
 }
+
+/**
+ * Dumps list items into code as bytes.
+ *
+ * @param byteList list to dump into code.
+ **/
+.macro Kickass_List_DumpBytesToCode(byteList) {
+    .for(var i = 0; i < byteList.size(); i++) {
+        .byte byteList.get(i)
+    }
+}
+
+/**
+ * Dumps list items into code as words.
+ *
+ * @param wordList list to dump into code.
+ **/
+.macro Kickass_List_DumpWordsToCode(wordList) {
+    .for(var i = 0; i < wordList.size(); i++) {
+        .word wordList.get(i)
+    }
+}

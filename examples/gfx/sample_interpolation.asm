@@ -22,6 +22,7 @@
 #import "hardware/color.asm"
 #import "hardware/screen.asm"
 #import "hardware/ted.asm"
+#import "kickass/list.asm"
 #import "kickass/memory.asm"
 #import "std_lib/interrupt.asm"
 #import "std_lib/keyboard.asm"
@@ -417,9 +418,7 @@ offset_address:
 
 //Render name lengths to output
 effect_name_lengths:
-    .for(var i = 0; i < effectNameLengths.size(); i++) {
-        .byte effectNameLengths.get(i)
-    }
+    Kickass_List_DumpBytesToCode(effectNameLengths)
     //Table must be terminated with 0, this is the signal for the end of the effect list.
     //Other tables are not terminated, this table will be checked when moving
     //to the next effect.
@@ -427,18 +426,12 @@ effect_name_lengths:
 
 //Render effect name addresses to output
 effect_names:
-    .for(var i = 0; i < effectNames.size(); i++) {
-        .word effectNames.get(i)
-    }
+    Kickass_List_DumpWordsToCode(effectNames)
 
 //Render effect shift addresses to output
 effect_shifts:
-    .for(var i = 0; i < effectShifts.size(); i++) {
-        .word effectShifts.get(i)
-    }
+    Kickass_List_DumpWordsToCode(effectShifts)
 
 //Render effect offset addresses to output
 effect_offsets:
-    .for(var i = 0; i < effectOffsets.size(); i++) {
-        .word effectOffsets.get(i)
-    }
+    Kickass_List_DumpWordsToCode(effectOffsets)
