@@ -11,9 +11,9 @@
 /**
  * Current version of P4 Includes.
  **/
-.const P4_INCLUDES_VERSION = "0.1.0"
+.const P4_INCLUDES_VERSION = "0.2.0"
 .const P4_INCLUDES_VERSION_MAJOR = 0
-.const P4_INCLUDES_VERSION_MINOR = 1
+.const P4_INCLUDES_VERSION_MINOR = 2
 .const P4_INCLUDES_VERSION_PATCH = 0
 
 /**
