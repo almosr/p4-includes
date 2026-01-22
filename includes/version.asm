@@ -82,8 +82,13 @@
         //Current version is compatible with itself (of course).
         .return true
     } else {
-        .print "WARNING: unknown version '" + version +"', unable to check compatibility."
-        .return false
+        .if (version == "0.1.0") {
+            //v0.2.0 is backward compatible with v0.1.0
+            .return true
+        } else {
+            .print "WARNING: unknown version '" + version +"', unable to check compatibility."
+            .return false
+        }
     }
 }
 
