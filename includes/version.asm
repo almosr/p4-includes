@@ -17,11 +17,18 @@
 .const P4_INCLUDES_VERSION_PATCH = 0
 
 /**
+ * Version tags to check current version against.
+ * These tags can be used as version parameter to version check functions in this include.
+ **/
+.const P4_INCLUDES_VERSION_TAG_0_2_0 = P4_INCLUDES_VERSION
+.const P4_INCLUDES_VERSION_TAG_0_1_0 = "0.1.0"
+
+/**
  * Check for minimum version of P4 includes.
  *
  * When minimum version is not met then stops compiling with a specific error.
  *
- * @param version required minimum version as string.
+ * @param version required minimum version as string, best approach is using version tags.
  **/
 .function P4Includes_Version_AtLest(version) {
     .var split = Kickass_String_Split(version, ".")
@@ -60,7 +67,7 @@
  *
  * When exact version is not met then stops compiling with a specific error.
  *
- * @param version required exact version as string.
+ * @param version required exact version as string, best approach is using version tags.
  **/
 .function P4Includes_Version_Exactly(version) {
     .if (P4_INCLUDES_VERSION != version) .error "P4 Includes required version is not met, required: " + version + ", actual: " + P4_INCLUDES_VERSION
@@ -74,7 +81,7 @@
  *       When a newer version is specified compared to the current version then it returns
  *       `false` because it does not know anything about a later release.
  *
- * @param version target version as a string.
+ * @param version target version as a string, best approach is using version tags.
  * @return `true` when specified version is compatible with the current version, `false` otherwise.
  **/
 .function P4Includes_Version_IsCompatible(version) {
@@ -82,7 +89,7 @@
         //Current version is compatible with itself (of course).
         .return true
     } else {
-        .if (version == "0.1.0") {
+        .if (version == P4_INCLUDES_VERSION_TAG_0_1_0) {
             //v0.2.0 is backward compatible with v0.1.0
             .return true
         } else {
