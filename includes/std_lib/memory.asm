@@ -313,3 +313,24 @@
     cpy #$ff
     bne !-
 }
+
+/**
+ * Fill multiple 256 byte long memory blocks.
+ *
+ * Changes:
+ *   A and Y register
+ *
+ * @param target_address target address for memory fill.
+ * @param value value for memory fill.
+ * @param number_of_blocks number of 256 byte long blocks to fill.
+ **/
+.macro StdLib_Memory_Fill_Blocks(target_address, value, number_of_blocks) {
+    ldy #0
+    lda #value
+!:
+    .for(var i = 0; i < number_of_blocks; i++) {
+        sta target_address + i * 256, y
+    }
+    iny
+    bne !-
+}
