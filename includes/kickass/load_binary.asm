@@ -10,6 +10,16 @@
 #import "kickass/list.asm"
 
 /**
+ * Hi-res bitmap load binary template, P4I format (Botticelli).
+ *
+ * Data chunks:
+ *   LuminanceMatrix (length: $03e8) - luminance part of pixel colors.
+ *   ColorMatrix (length: $03e8) - color part of pixel colors.
+ *   Bitmap (length: $1f40) - bitmap of pixels.
+ **/
+.const KICKASS_LOAD_BINARY_HIRES_P4I_TEMPLATE = "C64FILE, LuminanceMatrix=$0000, ColorMatrix=$0400, Bitmap=$0800, Dummy2=$07e8, Dummy1=$03e8"
+
+/**
  * Multicolor bitmap load binary template, P4I format (Multi Botticelli).
  *
  * Data chunks:
