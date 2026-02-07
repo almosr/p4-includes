@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   P4I file format.
 - `std_lib/memory.asm`, `StdLib_Memory_Fill_Blocks` - new macro for filling multiple 256 byte long memory blocks with
   the same value.
+- `std_lib/memory.asm`, `StdLib_Memory_Fill_Unrolled` - new macro for filling memory with a specific value using
+  unrolled store operations.
 - `std_lib/memory.asm`, `StdLib_Memory_Copy_Unrolled` - new macro copying memory using unrolled load/store operations.
 
 ### Fixed

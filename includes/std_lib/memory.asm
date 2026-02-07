@@ -316,6 +316,26 @@
 }
 
 /**
+ * Fill memory with unrolled sequence of store operations.
+ *
+ * Note: since the copying code length is related to the
+ * length of the copied data watch out for large copy operations.
+ *
+ * Changes:
+ *   A register
+ *
+ * @param target_address target address for memory fill.
+ * @param value value for memory fill.
+ * @param length length of fill (maximum 256 bytes).
+ **/
+.macro StdLib_Memory_Fill_Unrolled(target_address, value, length) {
+    lda #value
+    .for(var i = 0; i < length; i++) {
+        sta target_address + i
+    }
+}
+
+/**
  * Fill memory.
  *
  * Changes:
