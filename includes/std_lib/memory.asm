@@ -294,6 +294,26 @@
     cpy #length
     bne !-
 }
+/**
+ * Copy memory with unrolled sequence of load-store operations.
+ *
+ * Notes: overlapping memory areas are not treated differently.
+ * Since the copying code length is related to the length of the
+ * copied data watch out for large copy operations.
+ *
+ * Changes:
+ *   A register
+ *
+ * @param source_address source address for memory copy.
+ * @param target_address target address for memory copy.
+ * @param length length of copy.
+ **/
+.macro StdLib_Memory_Copy_Unrolled(source_address, target_address, length) {
+    .for(var i = 0; i < length; i++) {
+        lda source_address + i
+        sta target_address + i
+    }
+}
 
 /**
  * Fill memory.
