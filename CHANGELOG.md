@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `kickass/list.asm`, `Kickass_List_DumpWordsLowHighToCode` - new macro for dumping KickAssembler word list as low and
   high bytes to the code.
 - `std_lib/binary.asm`, `StdLib_Binary_WordToPackedBCD` - new macro for converting word-sized integer to packed BCD.
+- `std_lib/binary.asm`, `StdLib_Binary_Int16ToPackedBCD` - new function for converting word-sized integer to packed BCD.
 - Introduced the concept of version tags for compatibility check, see constants `P4_INCLUDES_VERSION_TAG_*` in
   `version.asm`.
 - `kickass/load_binary.asm`, `KICKASS_LOAD_BINARY_HIRES_P4I_TEMPLATE` - binary file definition for Botticelli Hi-Res

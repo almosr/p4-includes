@@ -34,7 +34,7 @@
 }
 
 /**
- * Convert a 16 bit integer into 3 byte long packed dest number.
+ * Convert a 16 bit integer into 3 byte long packed BCD number.
  *
  * Created by Andrew Jacobs
  * Source: https://codebase64.net/doku.php?id=base:more_hexadecimal_to_decimal_conversion
@@ -71,4 +71,24 @@
         bne !convert-
 
         cld             //Back to binary
+}
+
+/**
+ * Convert a 16 bit integer into a packed BCD number.
+ * Note: BCD number is much larger represented as integer, so be prepared for it.
+ *
+ * @param int 16 bit integer source number.
+ * @return BCD number
+ **/
+.function StdLib_Binary_Int16ToPackedBCD(int) {
+    .var result = 0
+    .var processed = 0
+
+    .for(var i = 4; i >= 0; i--) {
+        .var digit = floor((int - processed) / pow(10, i))
+        .eval processed = processed + digit * pow(10, i)
+        .eval result = (result << 4) | digit
+    }
+
+    .return result
 }
