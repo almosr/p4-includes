@@ -85,3 +85,19 @@
         .byte floor(wordList.get(i) / 256)
     }
 }
+
+/**
+ * Find a value in a list.
+ *
+ * @param list list for finding the value in.
+ * @param value value to look for.
+ * @return index of the value when found, or -1 when missing from the list.
+ **/
+.function Kickass_List_Find(list, value) {
+    .for(var i = 0; i < list.size(); i++) {
+        .if (list.get(i) == value) {
+            .return i
+        }
+    }
+    .return -1
+}
