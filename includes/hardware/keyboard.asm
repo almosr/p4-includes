@@ -8,6 +8,12 @@
 #importonce
 
 /**
+ * Unselect all keyboard rows
+ * Required for joystick state reading
+ **/
+.const HARDWARE_KEYBOARD_UNSELECT_ROWS = %11111111
+
+/**
  * Select keyboard row 0
  * Keys in this row are: @ F3 F2 F1 HELP RETURN DEL
  **/
