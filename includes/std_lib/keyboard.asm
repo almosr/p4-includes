@@ -40,6 +40,7 @@
 .macro StdLib_Keyboard_ReadKey(keyTest) {
     lda #keyTest.row
     sta HARDWARE_TED_KEYBOARD_ROW_SELECT
+    lda #$FF                                //Latch must be set to off, so joysticks won't be interfere with keyboard
     sta HARDWARE_TED_KEYBOARD_LATCH
     lda HARDWARE_TED_KEYBOARD_LATCH
     and #keyTest.key

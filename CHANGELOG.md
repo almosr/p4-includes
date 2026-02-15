@@ -24,8 +24,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the same value.
 - `std_lib/memory.asm`, `StdLib_Memory_Fill_Unrolled` - new macro for filling memory with a specific value using
   unrolled store operations.
-- `std_lib/memory.asm`, `StdLib_Memory_Copy_Unrolled` - new macro for copying memory using unrolled load/store operations.
-- `std_lib/memory.asm`, `StdLib_Memory_Fill_Blocks_Register` - new macro for filling multiple 256 byte long memory blocks with
+- `std_lib/memory.asm`, `StdLib_Memory_Copy_Unrolled` - new macro for copying memory using unrolled load/store
+  operations.
+- `std_lib/memory.asm`, `StdLib_Memory_Fill_Blocks_Register` - new macro for filling multiple 256 byte long memory
+  blocks with
   the same value from A register.
 - `std_lib/random.asm`, `StdLib_Random_Generate_Simple` and `StdLib_Random_Generate` - new macros for generating random
   number from a specific range.
@@ -33,6 +35,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Version checking function, previously failed to parse the version provided version string.
+- `std_lib/keyboard.asm`, `StdLib_Keyboard_ReadKey` - keyboard latch was not set correctly when reading keys, so
+  joysticks were read at the same time.
 
 ## [0.1.0] - 2024-08-17
 
