@@ -274,7 +274,7 @@
 /**
  * Keyboard result for Y
  **/
-.const HARDWARE_KEYBOARD_KEY_y             = %00000010
+.const HARDWARE_KEYBOARD_KEY_Y             = %00000010
 /**
  * Keyboard result for I
  **/
@@ -543,7 +543,7 @@
 /**
  * Keyboard test for Y
  **/
-.var HARDWARE_KEYBOARD_TEST_KEY_y             = Hardware_Keyboard_KeyTest(HARDWARE_KEYBOARD_SELECT_ROW_3, HARDWARE_KEYBOARD_KEY_y)
+.var HARDWARE_KEYBOARD_TEST_KEY_Y             = Hardware_Keyboard_KeyTest(HARDWARE_KEYBOARD_SELECT_ROW_3, HARDWARE_KEYBOARD_KEY_Y)
 /**
  * Keyboard test for I
  **/

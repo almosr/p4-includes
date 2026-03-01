@@ -38,6 +38,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Version checking function, previously failed to parse the version provided version string.
 - `std_lib/keyboard.asm`, `StdLib_Keyboard_ReadKey` - keyboard latch was not set correctly when reading keys, so
   joysticks were read at the same time.
+- `std_lib/keyboard.asm`, `HARDWARE_KEYBOARD_KEY_Y` and `HARDWARE_KEYBOARD_TEST_KEY_Y` - fixed inconsistent lowercase Y
+  in labels.
 
 ## [0.1.0] - 2024-08-17
 
