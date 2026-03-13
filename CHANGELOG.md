@@ -26,9 +26,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   unrolled store operations.
 - `std_lib/memory.asm`, `StdLib_Memory_Copy_Unrolled` - new macro for copying memory using unrolled load/store
   operations.
+- `std_lib/memory.asm`, `StdLib_Memory_Copy_Blocks` - new macro for copying multiple 256 byte long memory blocks.
 - `std_lib/memory.asm`, `StdLib_Memory_Fill_Blocks_Register` - new macro for filling multiple 256 byte long memory
-  blocks with
-  the same value from A register.
+  blocks with the same value from A register.
 - `std_lib/random.asm`, `StdLib_Random_Generate_Simple` and `StdLib_Random_Generate` - new macros for generating random
   number from a specific range.
 - `std_lib/joystick.asm` and `hardware/joystick.asm` - various constants and macros for handling joysticks.

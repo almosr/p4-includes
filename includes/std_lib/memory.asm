@@ -294,6 +294,7 @@
     cpy #length
     bne !-
 }
+
 /**
  * Copy memory with unrolled sequence of load-store operations.
  *
@@ -313,6 +314,29 @@
         lda source_address + i
         sta target_address + i
     }
+}
+
+/**
+ * Copy multiple 256 bytes long memory blocks.
+ *
+ * Note: overlapping memory areas are not treated differently.
+ *
+ * Changes:
+ *   A and Y register
+ *
+ * @param source_address source address for memory copy.
+ * @param target_address target address for memory copy.
+ * @param number_of_blocks number of 256 bytes long blocks to copy.
+ **/
+.macro StdLib_Memory_Copy_Blocks(source_address, target_address, number_of_blocks) {
+    ldy #0
+!:
+    .for(var i = 0; i < number_of_blocks; i++) {
+        lda source_address + i * 256, y
+        sta target_address + i * 256, y
+    }
+    iny
+    bne !-
 }
 
 /**
@@ -355,14 +379,14 @@
 }
 
 /**
- * Fill multiple 256 byte long memory blocks.
+ * Fill multiple 256 bytes long memory blocks.
  *
  * Changes:
  *   A and Y register
  *
  * @param target_address target address for memory fill.
  * @param value value for memory fill.
- * @param number_of_blocks number of 256 byte long blocks to fill.
+ * @param number_of_blocks number of 256 bytes long blocks to fill.
  **/
 .macro StdLib_Memory_Fill_Blocks(target_address, value, number_of_blocks) {
     lda #value
@@ -370,13 +394,13 @@
 }
 
 /**
- * Fill multiple 256 byte long memory blocks with value from register.
+ * Fill multiple 256 bytes long memory blocks with value from register.
  *
  * Changes:
  *   A and Y register
  *
  * @param target_address target address for memory fill.
- * @param number_of_blocks number of 256 byte long blocks to fill.
+ * @param number_of_blocks number of 256 bytes long blocks to fill.
  * @param A_register value for memory fill.
  **/
 .macro StdLib_Memory_Fill_Blocks_Register(target_address, number_of_blocks) {
