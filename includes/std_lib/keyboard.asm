@@ -67,82 +67,48 @@
 .macro StdLib_Keyboard_ReadKeys(keyTestList) {
     .if (mod(keyTestList.size(), 2) != 0) .error "Parameter keyTestList does not contain key-value pairs."
 
-    .var keyRowGroups = List()
+    .var keyTestMapping = List()
     .for(var i = 0; i < keyTestList.size(); i += 2) {
         .var keyTest = keyTestList.get(i)
         .var keyValue = keyTestList.get(i + 1)
         .if (keyValue == 0) .error "Value associated with the key must not be zero."
 
-        .var leave = false
-        .var group = 0
-        //This iteration walks through the already collected key row groups,
-        //trying to find a group for the key.
-        //If it runs out of groups then creates a new group.
-        .while(!leave) {
-            //Have we reached the end of the group list yet?
-            .if (keyRowGroups.size() == group) {
-                //End reached, new group is required,
-                //add one with the row, key and associated value pre-populated
-                .var newGroup = List().add(keyTest.row, keyTest.key, keyValue)
-                .eval keyRowGroups.add(newGroup)
-
-                //Found the goup for the key, leaving
-                .eval leave = true
-            } else {
-                .var currentGroup = keyRowGroups.get(group)
-                .var foundKey = false
-                //Search for the same key ID in this group
-                .for(var k = 1; k < currentGroup.size(); k += 2) {
-                    .if (currentGroup.get(k) == keyTest.key) {
-                        .eval foundKey = true
-                    }
-                }
-                //When the same key ID has not been found in the group then this key test can be added
-                .if (!foundKey) {
-                    //Add the row to the group rows
-                    .eval currentGroup.set(0, currentGroup.get(0) & keyTest.row)
-                    //Add the key and value to the group
-                    .eval currentGroup.add(keyTest.key, keyValue)
-
-                    //Found the goup for the key, leaving
-                    .eval leave = true
-                } else {
-                    //Move to the next group
-                    .eval group++
-                }
-            }
-        }
+        .eval keyTestMapping.add(keyTest.row, keyTest.key, keyValue)
     }
 
-    //Create test code for all groups
-    .for(var i = 0; i < keyRowGroups.size(); i++) {
-        .var group = keyRowGroups.get(i)
+    ldx #0
+!cyc:
+    lda !key_test_rows+,x     //Get the row selection
+    sta HARDWARE_TED_KEYBOARD_ROW_SELECT
+    lda #$FF                //Latch must be set to off, so joysticks won't be interfere with keyboard
+    sta HARDWARE_TED_KEYBOARD_LATCH
+    lda HARDWARE_TED_KEYBOARD_LATCH
+    and !key_test_keys+,x     //Mask the key column
+    beq !key_found+
+    inx
+    cpx #keyTestMapping.size() / 3
+    bne !cyc-
 
-            lda #group.get(0)       //First list item is the row
-            sta HARDWARE_TED_KEYBOARD_ROW_SELECT
-            lda #$FF                //Latch must be set to off, so joysticks won't be interfere with keyboard
-            sta HARDWARE_TED_KEYBOARD_LATCH
-            lda HARDWARE_TED_KEYBOARD_LATCH
-            tax                     //Read value is stored in X register
+    lda #0          //No pressed key has been found
+    beq !exit+
 
-        //Test for each key in this group
-        .var first = true
-        .for(var k = 1; k < group.size(); k += 2) {
-            .if (first)  {
-                //For first key the read value is already present in A register
-                .eval first = false
-            } else {
-                //For subsequent keys read value is restored from X register
-                txa
-            }
-                and #group.get(k)   //Check the bit specific to the key
-                bne !+                      //Key is not pressed, skip to next
-                lda #group.get(k + 1)   //Key is pressed, load value (never zero)
-                bne !exit+                  //Leave the processing
-            !:
-        }
+    //Inline the mapping data which will be skipped by execution
+!key_test_rows:
+    .for(var i = 0; i < keyTestMapping.size(); i += 3) {
+        .byte keyTestMapping.get(i)
     }
 
-        lda #0          //No key found
-    !exit:
+!key_test_keys:
+    .for(var i = 0; i < keyTestMapping.size(); i += 3) {
+        .byte keyTestMapping.get(i + 1)
+    }
+
+!key_test_values:
+    .for(var i = 0; i < keyTestMapping.size(); i += 3) {
+        .byte keyTestMapping.get(i + 2)
+    }
+
+!key_found:
+    lda !key_test_values-,x     //Read associated value to the key
+!exit:
 }
