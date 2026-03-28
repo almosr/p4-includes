@@ -11,16 +11,17 @@
 /**
  * Current version of P4 Includes.
  **/
-.const P4_INCLUDES_VERSION = "0.2.0"
+.const P4_INCLUDES_VERSION = "0.3.0"
 .const P4_INCLUDES_VERSION_MAJOR = 0
-.const P4_INCLUDES_VERSION_MINOR = 2
+.const P4_INCLUDES_VERSION_MINOR = 3
 .const P4_INCLUDES_VERSION_PATCH = 0
 
 /**
  * Version tags to check current version against.
  * These tags can be used as version parameter to version check functions in this include.
  **/
-.const P4_INCLUDES_VERSION_TAG_0_2_0 = P4_INCLUDES_VERSION
+.const P4_INCLUDES_VERSION_TAG_0_3_0 = P4_INCLUDES_VERSION
+.const P4_INCLUDES_VERSION_TAG_0_2_0 = "0.2.0"
 .const P4_INCLUDES_VERSION_TAG_0_1_0 = "0.1.0"
 
 /**
