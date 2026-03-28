@@ -50,3 +50,33 @@
 
     .return true
 }
+
+/**
+ * Convert ASCII string to PETSCII.
+ * Only alphanumeric and punctuation characters are supported.
+ *
+ * @param str ASCII string to convert.
+ * @return PETSCII string bytes in a list.
+ **/
+.function Kickass_String_AsciiStringToPetscii(str) {
+    .var result = List()
+    .for(var i = 0; i < str.size(); i++) {
+        .eval result.add(Kickass_String_AsciiToPetscii(str.charAt(i)))
+    }
+    .return result
+}
+
+/**
+ * Convert ASCII character to PETSCII.
+ * Only alphanumeric and punctuation characters are supported.
+ *
+ * @param chr ASCII character to convert.
+ * @return PETSCII character byte.
+ **/
+.function Kickass_String_AsciiToPetscii(chr) {
+    .if ((chr >= 'a') && (chr <= 'z')) {
+        .return chr + $20
+    }
+
+    .return chr
+}

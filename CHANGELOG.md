@@ -33,6 +33,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   number from a specific range.
 - `std_lib/joystick.asm` and `hardware/joystick.asm` - various constants and macros for handling joysticks.
 - `std_lib/keyboard.asm`, `StdLib_Keyboard_ReadKeys` - macro for reading and assessing multiple keys at the same time.
+- `system/string.asm`, `Kickass_String_AsciiStringToPetscii` and `Kickass_String_AsciiToPetscii` - functions for
+  converting ASCII string/character to PETSCII.
 
 ### Fixed
 
