@@ -7,6 +7,7 @@
 #importonce
 
 #import "hardware/ted.asm"
+#import "internal/std_lib/random.asm"
 
 /**
  * Initialise random number generation.
@@ -29,11 +30,14 @@
 }
 
 /**
- * Generate a random number from a specified range.
+ * Generate a random number from a specified range using hardware timers.
  * This macro emits case-specific code that relies on TED timers for producing a random number.
  *
- * Please note: the algorithm is very simple, it does not rely on any pseudo-random number generation.
- * The shortcoming is that it does retries when the generated number is outside of the required range.
+ * Changes:
+ *   A and X register
+ *
+ * Please note: The shortcoming is that it does retries when the generated number is outside of the
+ * required range.
  * When the upper bound of the length of the range is just over an exponent of 2 then the retry
  * range is equal to the difference to the next exponent of 2.
  * For example: when range is set to [22..151] then the range length is 129, this means random numbers
@@ -45,9 +49,8 @@
  * @return A register - generated random number.
  **/
 .macro StdLib_Random_Generate_Simple(rangeMinimum, rangeMaximum) {
-    .if (rangeMinimum >= rangeMaximum) .error "Range minimum parameter must be smaller than range maximum parameter, current minimum: " + rangeMinimum +", current maximum: " + rangeMaximum
-    .if (rangeMinimum < 0 || rangeMinimum > 255) .error "Range minimum parameter must fall into 0 to 255 range, current: " + rangeMinimum
-    .if (rangeMaximum < 0 || rangeMaximum > 255) .error "Range maximum parameter must fall into 0 to 255 range, current: " + rangeMaximum
+    //Validate parameters
+    Internal_StdLib_Random_RangeCheck(rangeMinimum, rangeMaximum)
 
     //Length of the generated range
     .var length = rangeMaximum - rangeMinimum
@@ -64,26 +67,53 @@
     eor HARDWARE_TED_TIMER_3_LOW
     eor HARDWARE_TED_TIMER_1_LOW
 
-    //Adjust random number only if it is not the special case of [0..255] range,
-    //otherwise the number is suitable already.
-    .if (length < 255) {
-        and #bitMask            //Leave only those bits we are interested in
+    //Scale generated random byte to requested range
+    Internal_StdLib_Random_ScaleToRange(rangeMinimum, rangeMaximum, !rethrow-)
+}
 
-        //When maximum generated random number after masking is not matching
-        //the range length then we need fallback logic for dealing with out of range numbers.
-        .if (length != bitMask) {
-                cmp #length     //Is the generated number larger than the length?
-                bcc !+          //When less or requal then we accept it
-                beq !+
-                jmp !rethrow-   //When larger then we need a new random number
-            !:
-        }
+/**
+ * Generate a random number from a specified range using arithmetic operations (pseudo-random number).
+ *
+ * Created by Ian Bell and David Braben
+ * Source: https://elite.bbcelite.com/cassette/main/subroutine/dornd.html
+ *
+ * For seed initialisation `StdLib_Random_Generate_Simple()` macro can be used when no other entropy
+ * source is available.
+ *
+ * Please note: The shortcoming is that it does retries when the generated number is outside of the
+ * required range.
+ * When the upper bound of the length of the range is just over an exponent of 2 then the retry
+ * range is equal to the difference to the next exponent of 2.
+ * For example: when range is set to [22..151] then the range length is 129, this means random numbers
+ * will be generated between 0 and 255 then any numbers over 129 will cause a re-generation. This situation
+ * could cause unpredictable significant delays, therefore not recommended.
+ *
+ * @param seedAddress address of random seed that is used as a starting point, 4 bytes are used at the target address as seed.
+ * @param rangeMinimum lower (inclusive) bound of the random range, must be between 0 and 255 and less than `rangeMaximum`.
+ * @param rangeMaximum upper (inclusive) bound of the random range, must be between 0 and 255 and more than `rangeMinimum`.
+ * @return A register - generated random number, new seed will be returned to the memory where `seedAddress` is pointing
+           to for the next generation round.
+ **/
+.macro StdLib_Random_Generate_Arithmetic(seedAddress, rangeMinimum, rangeMaximum) {
+    //Validate parameters
+     Internal_StdLib_Random_RangeCheck(rangeMinimum, rangeMaximum)
 
-        //When the range minimum is not 0 then we must add it to
-        //the generated random number to push it into the expected range.
-        .if (rangeMinimum != 0) {
-            clc
-            adc #rangeMinimum
-        }
-    }
+    //Generate random number in [0..255] range
+!rethrow:
+    clc
+    lda seedAddress
+    rol
+    tax
+    adc seedAddress+2
+    sta seedAddress
+    stx seedAddress+2
+    
+    lda seedAddress+1
+    tax       
+    adc seedAddress+3
+    sta seedAddress+1
+    stx seedAddress+3
+
+    //Scale generated random byte to requested range
+    Internal_StdLib_Random_ScaleToRange(rangeMinimum, rangeMaximum, !rethrow-)
 }
