@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `std_lib/random.asm`, `StdLib_Random_Generate_Arithmetic` - new macro for generating (pseudo-)random number using
   arithmetic operations rather than hardware timers.
+- `system/kernal.asm` - more kernal addresses for various functions, including standard Commodore kernal routines.
 
 ## [0.2.0] - 2026-03-29
 
