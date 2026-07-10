@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `system/kernal.asm` - more kernal addresses for various functions, including standard Commodore kernal routines.
 - `kickass/string.asm`, `Kickass_String_CovertToPetscii` - new function for converting escaped text to PETSCII text for
   printing.
+- `system/kernal.asm`, `System_Kernal_Print` - new macro for printing (sending) escaped static text to the currently
+  selected channel using kernal `INFOUT` routine.
 
 ## [0.2.0] - 2026-03-29
 

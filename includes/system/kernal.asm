@@ -6,6 +6,7 @@
 
 #importonce
 
+#import "kickass/string.asm"
 #import "std_lib/memory.asm"
 
 .const SYSTEM_KERNAL_FILL_PAGES    = $C5A7
@@ -85,4 +86,28 @@
     ldy #>startAddress
     lda #value
     jsr SYSTEM_KERNAL_FILL_PAGES
+}
+
+/**
+ * Print ASCII text to the currently selected channel using kernal routine.
+ * Escaped PETSCII characters will be converted to character codes.
+ * @see kickass/string/Kickass_String_CovertToPetscii for escaped characters.
+ *
+ * Note: make sure text encoding for KickAssembler is set to ASCII using
+ * one of these directives: `.encoding "petscii_mixed"` or `.encoding "petscii_uppercase"`.
+ *
+ * Changes:
+ *   A, X and Y registers
+ *
+ * @param text static text to print, will be inlined into the code directly, must not be longer than 255 character.
+ **/
+.macro System_Kernal_Print(text) {
+    .var escapedText = Kickass_String_CovertToPetscii(text)
+
+    .if (escapedText.size() > 255) .error "Text length must not exceed 255 characters, current: " + escapedText.size()
+
+    jsr SYSTEM_KERNAL_INFOUT
+    .text escapedText
+    //Terminate string with 0 byte
+    .byte 0
 }
