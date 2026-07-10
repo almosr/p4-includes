@@ -62,3 +62,17 @@
 
     .return floor(x) + floor(y) * HARDWARE_SCREEN_WIDTH
 }
+
+/**
+ * Calculates byte offset in screen for a specific coordinate relative to the screen width and height.
+ *
+ * @param relativeX horizontal coorinate [0..1].
+ * @param y vertical coorinate [0..1].
+ * @return offset from screen starting address.
+ **/
+.function Hardware_Screen_CalculateOffsetRelative(relativeX, relativeY) {
+    .errorif relativeX < 0 || relativeX > 1, "X relative coordinate is out of range"
+    .errorif relativeY < 0 || relativeY > 1, "y relative coordinate is out of range"
+
+    .return Hardware_Screen_CalculateOffset((HARDWARE_SCREEN_WIDTH - 1) * relativeX, (HARDWARE_SCREEN_HEIGHT - 1) * relativeY)
+}

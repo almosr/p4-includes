@@ -16,10 +16,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   printing.
 - `system/kernal.asm`, `System_Kernal_Print` - new macro for printing (sending) escaped static text to the currently
   selected channel using kernal `INFOUT` routine.
+- `hardware/screen.asm`, `Hardware_Screen_CalculateOffsetRelative` - new function for calculating relative offsets on
+  the screen based on screen width and height.
 
 ### Fixed
 
-- `hardware/screen.asm`, `Hardware_Screen_CalculateOffset` - coordinates are now rounded down to nearest integer. 
+- `hardware/screen.asm`, `Hardware_Screen_CalculateOffset` - coordinates are now rounded down to nearest integer.
 
 ## [0.2.0] - 2026-03-29
 
