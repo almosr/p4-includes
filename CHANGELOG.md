@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `system/kernal.asm`, `System_Kernal_Print` - new macro for printing (sending) escaped static text to the currently
   selected channel using kernal `INFOUT` routine.
 
+### Fixed
+
+- `hardware/screen.asm`, `Hardware_Screen_CalculateOffset` - coordinates are now rounded down to nearest integer. 
+
 ## [0.2.0] - 2026-03-29
 
 ### Added

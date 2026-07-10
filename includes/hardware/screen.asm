@@ -50,13 +50,15 @@
 /**
  * Calculates byte offset in screen for a specific coordinate.
  *
- * @param x horizontal coorinate (0 - 39).
- * @param y vertical coorinate (0 - 24).
+ * Note: coordinates are rounded down to nearest integer.
+ *
+ * @param x horizontal coorinate [0..39].
+ * @param y vertical coorinate [0..24].
  * @return offset from screen starting address.
  **/
 .function Hardware_Screen_CalculateOffset(x, y) {
     .errorif x < 0 || x > 39, "X coordinate is out of range"
     .errorif y < 0 || y > 24, "y coordinate is out of range"
 
-    .return x + y * HARDWARE_SCREEN_WIDTH
+    .return floor(x) + floor(y) * HARDWARE_SCREEN_WIDTH
 }
