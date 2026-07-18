@@ -2,13 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres
+to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.3.0] - pending
 
 ### Added
 
+- `std_lib/math.asm`, `StdLib_Multiply_Byte2Byte` and `StdLib_Multiply_Byte2Byte_Unrolled` - new macros for multiplying
+  byte sized integers.
 - `std_lib/random.asm`, `StdLib_Random_Generate_Arithmetic` - new macro for generating (pseudo-)random number using
   arithmetic operations rather than hardware timers.
 - `system/kernal.asm` - more kernal addresses for various functions, including standard Commodore kernal routines.
@@ -27,8 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `kickass/list.asm`, `Kickass_List_DumpBytesToCode` and `Kickass_List_DumpWordsToCode` -
-  new macros for dumping KickAssembler lists as bytes or words to the code
+- `kickass/list.asm`, `Kickass_List_DumpBytesToCode` and `Kickass_List_DumpWordsToCode` - new macros for dumping
+  KickAssembler lists as bytes or words to the code
 - `kickass/list.asm`, `Kickass_List_DumpWordsLowHighToCode` - new macro for dumping KickAssembler word list as low and
   high bytes to the code.
 - `kickass/list.asm`, `Kickass_List_Find` - new function for finding a value in a KickAssembler list.
@@ -36,8 +38,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `std_lib/binary.asm`, `StdLib_Binary_Int16ToPackedBCD` - new function for converting word-sized integer to packed BCD.
 - Introduced the concept of version tags for compatibility check, see constants `P4_INCLUDES_VERSION_TAG_*` in
   `version.asm`.
-- `kickass/load_binary.asm`, `KICKASS_LOAD_BINARY_HIRES_P4I_TEMPLATE` - binary file definition for Botticelli Hi-Res
-  P4I file format.
+- `kickass/load_binary.asm`, `KICKASS_LOAD_BINARY_HIRES_P4I_TEMPLATE` - binary file definition for Botticelli Hi-Res P4I
+  file format.
 - `std_lib/memory.asm`, `StdLib_Memory_Fill_Blocks` - new macro for filling multiple 256 byte long memory blocks with
   the same value.
 - `std_lib/memory.asm`, `StdLib_Memory_Fill_Unrolled` - new macro for filling memory with a specific value using
