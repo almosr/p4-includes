@@ -6,6 +6,8 @@
 
 #importonce
 
+#import "kickass/functions.asm"
+
 .const HARDWARE_COLOR_BLACK         = $00
 .const HARDWARE_COLOR_WHITE         = $01
 .const HARDWARE_COLOR_RED          	= $02
@@ -32,8 +34,7 @@
  * @return color code calculated from components.
  **/
 .function Hardware_Color_Code(code, luminance) {
-    .errorif code < 0 || code > 15, "Color code is out of range"
-    .errorif luminance < 0 || luminance > 7, "Luminance is out of range"
+     .eval Kickass_Functions_CheckRanges(List().add("color code", code, 0, 15, "color luminance", luminance, 0, 7))
 
     .return (luminance << 4) + code
 }

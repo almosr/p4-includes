@@ -6,6 +6,7 @@
 
 #importonce
 
+#import "kickass/functions.asm"
 #import "std_lib/memory.asm"
 #import "internal/logging.asm"
 #import "internal/std_lib/compression_rle.asm"
@@ -24,7 +25,7 @@
  * @param value repeated byte value.
  */
 .macro StdLib_CompressionRle_RenderPacked(length, value) {
-    .if (length > INTERNAL_STD_LIB_COMPRESSION_RLE_MAX_LENGTH || length < 1) .error "Invalid run length, must be between 1 and " + INTERNAL_STD_LIB_COMPRESSION_RLE_MAX_LENGTH + ", actual: " + length
+    .eval Kickass_Functions_CheckRanges(List().add("length", length, 1, INTERNAL_STD_LIB_COMPRESSION_RLE_MAX_LENGTH))
 
     //Special case: 1 long will be rendered as copy instead of packed
     .if (length == 1) {
@@ -42,7 +43,7 @@
  **/
 .macro StdLib_CompressionRle_RenderCopy(values) {
     .var length = values.size()
-    .if (length > INTERNAL_STD_LIB_COMPRESSION_RLE_MAX_LENGTH || length < 1) .error "Invalid number of copied values, must be between 1 and " + INTERNAL_STD_LIB_COMPRESSION_RLE_MAX_LENGTH + ", actual: " + length
+    .eval Kickass_Functions_CheckRanges(List().add("values length", length, 1, INTERNAL_STD_LIB_COMPRESSION_RLE_MAX_LENGTH))
 
     .byte INTERNAL_STD_LIB_COMPRESSION_RLE_CONTROL_COPY + length - 1
     .fill length, values.get(i)

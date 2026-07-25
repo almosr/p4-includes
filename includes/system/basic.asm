@@ -6,6 +6,7 @@
 
 #importonce
 
+#import "kickass/functions.asm"
 #import "kickass/list.asm"
 #import "kickass/string.asm"
 
@@ -17,8 +18,7 @@
  * @param additionalText text after SYS command in BASIC listing, or empty string when not needed.
  **/
 .macro System_Basic_Startup(targetAddress, lineNumber, additionalText) {
-    .if (targetAddress < 0 || targetAddress > 65535) .error "Target address should fall into [0..65535] range, actual: " + targetAddress
-    .if (lineNumber < 0 || lineNumber > 65535) .error "Line number should fall into [0..65535] range, actual: " + targetAddress
+    .eval Kickass_Functions_CheckRanges(List().add("targetAddress", targetAddress, 0, 65535, "lineNumber", lineNumber, 0, 65535))
 
     .var bytes = List()
 

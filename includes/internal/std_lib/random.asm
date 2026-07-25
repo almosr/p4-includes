@@ -1,10 +1,11 @@
 //--------------------- Internals for Std Lib/Random
 #importonce
 
+#import "kickass/functions.asm"
+
 .macro Internal_StdLib_Random_RangeCheck(rangeMinimum, rangeMaximum) {
     .if (rangeMinimum >= rangeMaximum) .error "Range minimum parameter must be smaller than range maximum parameter, current minimum: " + rangeMinimum +", current maximum: " + rangeMaximum
-    .if (rangeMinimum < 0 || rangeMinimum > 255) .error "Range minimum parameter must fall into 0 to 255 range, current: " + rangeMinimum
-    .if (rangeMaximum < 0 || rangeMaximum > 255) .error "Range maximum parameter must fall into 0 to 255 range, current: " + rangeMaximum
+    .eval Kickass_Functions_CheckRanges(List().add("rangeMinimum", rangeMinimum, 0, 255, "rangeMaximum", rangeMaximum, 0, 255))
 }
 
 .macro Internal_StdLib_Random_ScaleToRange(rangeMinimum, rangeMaximum, rethrow) {

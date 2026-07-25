@@ -6,8 +6,9 @@
 
 #importonce
 
-#import "internal/hardware/screen.asm"
 #import "hardware/ted.asm"
+#import "internal/hardware/screen.asm"
+#import "kickass/functions.asm"
 
 .const HARDWARE_SCREEN_WIDTH = 40
 .const HARDWARE_SCREEN_HEIGHT = 25
@@ -57,8 +58,7 @@
  * @return offset from screen starting address.
  **/
 .function Hardware_Screen_CalculateOffset(x, y) {
-    .errorif x < 0 || x > 39, "X coordinate is out of range"
-    .errorif y < 0 || y > 24, "y coordinate is out of range"
+    .eval Kickass_Functions_CheckRanges(List().add("x coordinate", x, 0, 39, "y coordinate", y, 0, 24))
 
     .return floor(x) + floor(y) * HARDWARE_SCREEN_WIDTH
 }
@@ -71,8 +71,7 @@
  * @return offset from screen starting address.
  **/
 .function Hardware_Screen_CalculateOffsetRelative(relativeX, relativeY) {
-    .errorif relativeX < 0 || relativeX > 1, "X relative coordinate is out of range"
-    .errorif relativeY < 0 || relativeY > 1, "y relative coordinate is out of range"
+    .eval Kickass_Functions_CheckRanges(List().add("relativeX", relativeX, 0, 1, "relativeY", relativeY, 0, 1))
 
     .return Hardware_Screen_CalculateOffset((HARDWARE_SCREEN_WIDTH - 1) * relativeX, (HARDWARE_SCREEN_HEIGHT - 1) * relativeY)
 }
