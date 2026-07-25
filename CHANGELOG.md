@@ -20,6 +20,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   selected channel using kernal `INFOUT` routine.
 - `hardware/screen.asm`, `Hardware_Screen_CalculateOffsetRelative` - new function for calculating relative offsets on
   the screen based on screen width and height.
+- `kickass/functions.asm`, `Kickass_Functions_CheckRange`, `Kickass_Functions_CheckRanges` - new functions for
+  validating the range of an integer or floag argument or a list of integer or float arguments for a function or macro.
 
 ### Fixed
 
