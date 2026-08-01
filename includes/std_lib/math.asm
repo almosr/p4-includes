@@ -50,10 +50,11 @@
  * Multiply two byte size integers with unrolled iteration.
  *
  * Note: while this macro generates much faster code than
- * `StdLib_Multiply_Byte2Byte`, the generated code is much larger.
+ * `StdLib_Multiply_Byte2Byte`, the generated code is significantly larger,
+ * more than 140 bytes long.
  *
  * Changes:
- *   A, X and Y registers, source1_address (cleared)
+ *   A and Y registers, source1_address (cleared)
  *
  * @param source1_address address of source byte #1.
  * @param source2_address address of source byte #2.
@@ -190,4 +191,110 @@
         .fill 256, >(i * int)
 
     !skip:
+}
+
+/**
+ * Multiply two word size integers.
+ *
+ * Changes:
+ *   A and X registers, source1_address (cleared)
+ *
+ * @param source1_address address of source word #1.
+ * @param source2_address address of source word #2.
+ * @param result_address address of destiation longword (4 bytes).
+ * @return result of multiplication in result_address.
+ **/
+.macro StdLib_Multiply_Word2Word(source1_address, source2_address, result_address) {
+        ldx #15                 //Store number of iterations for a word in counter
+
+        lda #0
+        sta result_address      //Clear result bytes
+        sta result_address + 1
+        sta result_address + 2
+        sta result_address + 3
+        beq !+                  //Skip rotation of empty result
+
+    !cyc:
+        asl result_address      //Multiply result by 2
+        rol result_address + 1
+        rol result_address + 2
+        rol result_address + 3
+    !:
+        asl source1_address     //Get next bit from source #1
+        rol source1_address + 1
+        bcc !skip+              //When not set then skip addition
+
+        lda source2_address     //When bit was set then add source #2 to result
+        clc
+        adc result_address
+        sta result_address
+        lda source2_address + 1
+        adc result_address + 1
+        sta result_address + 1
+        lda result_address + 2  //Add carry to upper bytes of the result
+        adc #0
+        sta result_address + 2
+        lda result_address + 3
+        adc #0
+        sta result_address + 3
+
+    !skip:
+        dex                     //Decrease bit counter
+        bpl !cyc-               //If more bits left then iterate
+}
+
+
+/**
+ * Multiply two word size integers with unrolled iteration.
+ *
+ * Note: while this macro generates much faster code than
+ * `StdLib_Multiply_Word2Word`, the generated code is significantly larger,
+ *  more than 600 bytes long.
+ *
+ * Changes:
+ *   A register, source1_address (cleared)
+ *
+ * @param source1_address address of source byte #1.
+ * @param source2_address address of source byte #2.
+ * @param result_address address of destiation word (2 bytes).
+ * @return result of multiplication in result_address.
+ **/
+.macro StdLib_Multiply_Word2Word_Unrolled(source1_address, source2_address, result_address) {
+        lda #0
+        sta result_address      //Clear result bytes
+        sta result_address + 1
+        sta result_address + 2
+        sta result_address + 3
+
+        //Copy multiplication by addition for each bit in the source #1 byte
+        .for(var i = 0; i < 16; i++) {
+
+                //For the first iteration result is still empty, skip multiplication
+                .if (i != 0) {
+                    asl result_address      //Multiply result by 2
+                    rol result_address + 1
+                    rol result_address + 2
+                    rol result_address + 3
+                }
+
+                asl source1_address     //Get next bit from source #1
+                rol source1_address + 1
+                bcc !skip+              //When not set then skip addition
+
+                lda source2_address     //When bit was set then add source #2 to result
+                clc
+                adc result_address
+                sta result_address
+                lda source2_address + 1
+                adc result_address + 1
+                sta result_address + 1
+                lda result_address + 2  //Add carry to upper bytes of the result
+                adc #0
+                sta result_address + 2
+                lda result_address + 3
+                adc #0
+                sta result_address + 3
+
+            !skip:
+        }
 }

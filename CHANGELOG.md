@@ -11,6 +11,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - `std_lib/math.asm`, `StdLib_Multiply_Byte2Byte`, `StdLib_Multiply_Byte2Byte_Unrolled`,
   `StdLib_Multiply_Byte2Byte_Const`, `StdLib_Multiply_Byte2Byte_Table` - new macros for multiplying byte sized integers.
+- `std_lib/math.asm`, `StdLib_Multiply_Word2Word`, `StdLib_Multiply_Word2Word_Unrolled` - new macros for multiplying
+  word sized integers.
 - `std_lib/random.asm`, `StdLib_Random_Generate_Arithmetic` - new macro for generating (pseudo-)random number using
   arithmetic operations rather than hardware timers.
 - `system/kernal.asm` - more kernal addresses for various functions, including standard Commodore kernal routines.
