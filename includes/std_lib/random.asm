@@ -80,6 +80,9 @@
  * For seed initialisation `StdLib_Random_Generate_Simple()` macro can be used when no other entropy
  * source is available.
  *
+ * Changes:
+ *   A and X register, seed
+ *
  * Please note: The shortcoming is that it does retries when the generated number is outside of the
  * required range.
  * When the upper bound of the length of the range is just over an exponent of 2 then the retry
