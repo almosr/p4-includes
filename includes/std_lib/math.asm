@@ -17,7 +17,7 @@
  * @param result_address address of destiation word (2 bytes).
  * @return result of multiplication in result_address.
  **/
-.macro StdLib_Multiply_Byte2Byte(source1_address, source2_address, result_address) {
+.macro StdLib_Math_Multiply_Byte2Byte(source1_address, source2_address, result_address) {
         ldx #7                  //Store number of iterations for a byte in counter
 
         lda #0
@@ -50,7 +50,7 @@
  * Multiply two byte size integers with unrolled iteration.
  *
  * Note: while this macro generates much faster code than
- * `StdLib_Multiply_Byte2Byte`, the generated code is significantly larger,
+ * `StdLib_Math_Multiply_Byte2Byte`, the generated code is significantly larger,
  * more than 140 bytes long.
  *
  * Changes:
@@ -61,7 +61,7 @@
  * @param result_address address of destiation word (2 bytes).
  * @return result of multiplication in result_address.
  **/
-.macro StdLib_Multiply_Byte2Byte_Unrolled(source1_address, source2_address, result_address) {
+.macro StdLib_Math_Multiply_Byte2Byte_Unrolled(source1_address, source2_address, result_address) {
         lda #0
         sta result_address      //Clear LSB of result
         tay                     //Clear MSB of result that is stored in Y register
@@ -105,7 +105,7 @@
  * @param result_address address of destiation word (2 bytes).
  * @return result of multiplication in result_address.
  **/
-.macro StdLib_Multiply_Byte2Byte_Const(source_address, int, result_address) {
+.macro StdLib_Math_Multiply_Byte2Byte_Const(source_address, int, result_address) {
     .if (int == 0) .error "Parameter `int` must not be zero."
 
     //Flag for signaling when result is not empty anymore
@@ -157,7 +157,7 @@
  * Note: this macro produces very fast multiplication, but the look-up
  * table requires 512 bytes in the code. The look-up table will be
  * inlined in the code directly and the routine will jump over it.
- * Consider using `StdLib_Multiply_Byte2Byte_Const` macro instead,
+ * Consider using `StdLib_Math_Multiply_Byte2Byte_Const` macro instead,
  * for small constants that could produce almost as fast, but much
  * smaller code.
  *
@@ -172,7 +172,7 @@
           a subroutine call.
  * @return result of multiplication in result_address.
  **/
-.macro StdLib_Multiply_Byte2Byte_Table(source_address, int, result_address, subroutine) {
+.macro StdLib_Math_Multiply_Byte2Byte_Table(source_address, int, result_address, subroutine) {
         ldx source_address      //Load source to X register for indexing
         lda !lookup_low+,x      //Get result LSB from lookup table
         sta result_address      //Put it to result target address
@@ -204,7 +204,7 @@
  * @param result_address address of destiation longword (4 bytes).
  * @return result of multiplication in result_address.
  **/
-.macro StdLib_Multiply_Word2Word(source1_address, source2_address, result_address) {
+.macro StdLib_Math_Multiply_Word2Word(source1_address, source2_address, result_address) {
         ldx #15                 //Store number of iterations for a word in counter
 
         lda #0
@@ -248,7 +248,7 @@
  * Multiply two word size integers with unrolled iteration.
  *
  * Note: while this macro generates much faster code than
- * `StdLib_Multiply_Word2Word`, the generated code is significantly larger,
+ * `StdLib_Math_Multiply_Word2Word`, the generated code is significantly larger,
  *  more than 600 bytes long.
  *
  * Changes:
@@ -259,7 +259,7 @@
  * @param result_address address of destiation word (2 bytes).
  * @return result of multiplication in result_address.
  **/
-.macro StdLib_Multiply_Word2Word_Unrolled(source1_address, source2_address, result_address) {
+.macro StdLib_Math_Multiply_Word2Word_Unrolled(source1_address, source2_address, result_address) {
         lda #0
         sta result_address      //Clear result bytes
         sta result_address + 1
