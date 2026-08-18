@@ -25,6 +25,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   the screen based on screen width and height.
 - `kickass/functions.asm`, `Kickass_Functions_CheckRange`, `Kickass_Functions_CheckRanges` - new functions for
   validating the range of an integer or float argument or a list of integer or float arguments for a function or macro.
+- `kickass/functions.asm`, `Kickass_Functions_CheckMinimum`, `Kickass_Functions_CheckMaximum` - new functions for
+  validating an integer or float argument against expected minimum/maximum value.
 - `kickass/instructions.asm`, `nopn` - pseudo-command for emitting specific number of `NOP` instructions to the code.
 
 ### Fixed
