@@ -6,6 +6,8 @@
 
 #importonce
 
+#import "kickass/functions.asm"
+
 /**
  * Copy a specific item into a list multiple times.
  *
@@ -100,4 +102,48 @@
         }
     }
     .return -1
+}
+
+/**
+ * Find minimum value in a list.
+ * List must consists of integer or float values and must contain at least one value.
+ *
+ * @param list list of items to scan for minimum value.
+ * @return index of the found item in the list.
+ **/
+.function Kickass_List_FindMinimum(list) {
+    .eval Kickass_Functions_CheckMinimum("list size", list.size(), 1)
+
+    .var index = 0
+    .var value = list.get(0)
+    .for(var i = 1; i < list.size(); i++) {
+        .if (list.get(i) < value) {
+            .eval value = list.get(i)
+            .eval index = i
+        }
+    }
+
+    .return index
+}
+
+/**
+ * Find maximum value in a list.
+ * List must consists of integer or float values and must contain at least one value.
+ *
+ * @param list list of items to scan for maximum value.
+ * @return index of the found item in the list.
+ **/
+.function Kickass_List_FindMaximum(list) {
+    .eval Kickass_Functions_CheckMinimum("list size", list.size(), 1)
+
+    .var index = 0
+    .var value = list.get(0)
+    .for(var i = 1; i < list.size(); i++) {
+        .if (list.get(i) > value) {
+            .eval value = list.get(i)
+            .eval index = i
+        }
+    }
+
+    .return index
 }
