@@ -14,6 +14,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   integers.
 - `std_lib/math.asm`, `StdLib_Math_Multiply_Word2Word`, `StdLib_Math_Multiply_Word2Word_Unrolled` - new macros for
   multiplying word sized integers.
+- `std_lib/math.asm`, `StdLib_Math_ClampToInt`, `StdLib_Math_ClampToValue` - new macros for clamping word value to a
+  limit.
 - `std_lib/random.asm`, `StdLib_Random_Generate_Arithmetic` - new macro for generating (pseudo-)random number using
   arithmetic operations rather than hardware timers.
 - `system/kernal.asm` - more kernal addresses for various functions, including standard Commodore kernal routines.

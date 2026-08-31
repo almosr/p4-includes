@@ -6,6 +6,9 @@
 
 #importonce
 
+#import "kickass/functions.asm"
+#import "std_lib/memory.asm"
+
 /**
  * Multiply two byte size integers.
  *
@@ -297,4 +300,57 @@
 
             !skip:
         }
+}
+
+/**
+ * Clamp (limit) a word-sized value at target address to a specific maximum constant.
+ * When the value is more than the specified limit then set it to the limit.
+ *
+ * @param target_address target address where the word-sized value is stored.
+ * @param limit maximum value to limit to, range: [0..65535].
+ **/
+.macro StdLib_Math_ClampToInt(target_address, limit) {
+    .eval Kickass_Functions_CheckRange("limit", limit, 0, 65535)
+
+        lda target_address + 1
+        cmp #>limit
+        bcc !ok+
+        bne !limit+
+
+        lda target_address
+        cmp #<limit
+        bcc !ok+
+        beq !ok+
+
+    !limit:
+        StdLib_Memory_SetMemory(limit, target_address)
+
+    !ok:
+}
+
+/**
+ * Clamp (limit) a word-sized value at a target address to a specific maximum value.
+ * When the value is more than the specified limit then set it to the limit.
+ *
+ * @param target_address target address where the word-sized value is stored.
+ * @param limit_address address where the maximum value is stored to limit to.
+ **/
+.macro StdLib_Math_ClampToValue(target_address, limit_address) {
+        lda target_address + 1
+        cmp limit_address + 1
+        bcc !ok+
+        bne !limit+
+
+        lda target_address
+        cmp limit_address
+        bcc !ok+
+        beq !ok+
+
+    !limit:
+        lda limit_address
+        sta target_address
+        lda limit_address + 1
+        sta target_address + 1
+
+    !ok:
 }
