@@ -22,6 +22,22 @@
 }
 
 /**
+ * Remove multiple items from a list.
+ *
+ * @param list target list.
+ * @param start first item to remove.
+ * @param count number of times to remove.
+ **/
+.macro Kickass_List_RemoveMultiple(list, start, count) {
+    .eval Kickass_Functions_CheckRange("start", start, 0, list.size() - 1)
+    .eval Kickass_Functions_CheckRange("count", count, 1, list.size() - start)
+
+    .for(var i = 0; i < count; i++) {
+        .eval list.remove(start)
+    }
+}
+
+/**
  * Add all bytes to list from binary data that was loaded by KickAssembler's `LoadBinary` function.
  *
  * @param binary source binary.

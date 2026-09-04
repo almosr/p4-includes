@@ -32,6 +32,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `kickass/instructions.asm`, `nopn` - pseudo-command for emitting specific number of `NOP` instructions to the code.
 - `kickass/list.asm`, `Kickass_List_FindMinimum`, `Kickass_List_FindMaximum` - new functions for finding minimum/maximum
   value in a list of integer or float values.
+- `kickass/list.asm`, `Kickass_List_RemoveMultiple` - new function for removing multiple items from a list.
 - `gfx/image.asm`, `Gfx_Image_DefineCharset` and related structures: `Gfx_Image_CharsetGetChar`,
   `Gfx_Image_CharsetCopyChar`, `Gfx_Image_CharsetGetChars`, `Gfx_Image_CharsetCopyChars` - new macro for assembling a
   new character set out of multiple source character sets.
