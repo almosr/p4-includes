@@ -44,6 +44,7 @@
     sta HARDWARE_TED_KEYBOARD_LATCH
     lda HARDWARE_TED_KEYBOARD_LATCH
     and #keyTest.key
+    eor #keyTest.key                        //Invert outcome to set Z flag correctly
 }
 
 /**

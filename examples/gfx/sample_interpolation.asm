@@ -121,7 +121,7 @@ start:
 wait_for_key:
     //Wait for space key press
 !:  StdLib_Keyboard_ReadKey(HARDWARE_KEYBOARD_TEST_KEY_SPACE)
-    bne !-
+    beq !-
 
     //Change to next effect
     jsr change_effect

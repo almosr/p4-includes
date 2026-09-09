@@ -40,6 +40,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 
 - `hardware/screen.asm`, `Hardware_Screen_CalculateOffset` - coordinates are now rounded down to nearest integer.
+- `std_lib/keyboard.asm`, `StdLib_Keyboard_ReadKey` - fixed outcome of key test in Z flag.
 
 ## [0.2.0] - 2026-03-29
 
