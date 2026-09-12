@@ -106,12 +106,12 @@
 /**
  * Set up start address for animation data before playback.
  * This macro rewinds the playback back to the beginning.
- * An instance of `StdLib_Compression_Rle_Unpacker` macro must be included in the code and provided to this macro.
+ * An instance of `StdLib_CompressionRle_Unpacker` macro must be included in the code and provided to this macro.
  *
  * Changes:
  *   A register
  *
- * @param unpackerRef label where `StdLib_Compression_Rle_Unpacker` macro was imported.
+ * @param unpackerRef label where `StdLib_CompressionRle_Unpacker` macro was imported.
  * @param address start address of data structure produced by `Gfx_FrameAnimation_Pack` or
  *                `Gfx_FrameAnimation_PackSequence` macro.
  **/
@@ -123,12 +123,12 @@
 /**
  * Set up start address for animation data before playback.
  * This macro rewinds the playback back to the beginning.
- * An instance of `StdLib_Compression_Rle_Unpacker` macro must be included in the code and provided to this macro.
+ * An instance of `StdLib_CompressionRle_Unpacker` macro must be included in the code and provided to this macro.
  *
  * Changes:
  *   A register
  *
- * @param unpackerRef label where `StdLib_Compression_Rle_Unpacker` macro was imported.
+ * @param unpackerRef label where `StdLib_CompressionRle_Unpacker` macro was imported.
  * @param address address of word in memory that contains the start address of data structure
  *                produced by `Gfx_FrameAnimation_Pack` or `Gfx_FrameAnimation_PackSequence` macro.
  **/
@@ -141,12 +141,12 @@
  * Unpack frame data into memory relative to a base address.
  * Before executing code from this macro `Gfx_FrameAnimation_SetDataStartAddress` macro should be
  * used for setting up start address.
- * An instance of `StdLib_Compression_Rle_Unpacker` macro must be included in the code and provided to this macro.
+ * An instance of `StdLib_CompressionRle_Unpacker` macro must be included in the code and provided to this macro.
  *
  * Changes:
  *   A and Y registers
  *
- * @param unpackerRef label where `StdLib_Compression_Rle_Unpacker` macro was imported.
+ * @param unpackerRef label where `StdLib_CompressionRle_Unpacker` macro was imported.
  * @param baseAddress base address of target for frame unpacking, represents the base address of
  *                    the compressed data/files, all offsets will be added to this address.
  * @return after unpacking zero-page registers that were provided to the unpacker will contain the next address

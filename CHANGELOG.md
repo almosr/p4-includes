@@ -43,6 +43,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - `hardware/screen.asm`, `Hardware_Screen_CalculateOffset` - coordinates are now rounded down to nearest integer.
 - `std_lib/keyboard.asm`, `StdLib_Keyboard_ReadKey` - fixed outcome of key test in Z flag.
+- `std_lib/compression_rle.asm`, `StdLib_CompressionRle_Unpacker` - fixed inconsistent name of the unpacker macro.
 
 ## [0.2.0] - 2026-03-29
 

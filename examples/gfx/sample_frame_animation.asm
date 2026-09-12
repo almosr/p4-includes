@@ -81,7 +81,7 @@ start:
 
     //Put unpacker routine here, unpacking will be jumping here
 unpacker:
-    StdLib_Compression_Rle_Unpacker(zp.src_reg, zp.dest_reg, zp.tmp_reg)
+    StdLib_CompressionRle_Unpacker(zp.src_reg, zp.dest_reg, zp.tmp_reg)
 
 //Set first frame up in memory to display it at runtime.
 *= SYSTEM_ADDRESS_GRAPHICS_MEMORY_LUMINANCE_MATRIX "Image luminance matrix"

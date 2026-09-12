@@ -130,7 +130,7 @@
  *
  * The unpacker routine can be placed anywhere in the code base that is reachable by a branch opcode (jsr).
  * Possible to include multiple versions of this routine with different zero-page registers.
- * Unpacking can be started either by using `StdLib_Compression_Rle_Unpack` macro, or by setting up
+ * Unpacking can be started either by using `StdLib_CompressionRle_Unpack` macro, or by setting up
  * addresses in source and destination zero-page addresses and jump to `unpack` label inside this macro.
  *
  * Changes:
@@ -140,7 +140,7 @@
  * @param zp_reg_dest zero-page start address of register pair for uncompressed destination data address.
  * @param zp_reg_tmp zero-page address of register for temporary values.
  **/
-.macro StdLib_Compression_Rle_Unpacker(zp_reg_src, zp_reg_dest, zp_reg_tmp) {
+.macro StdLib_CompressionRle_Unpacker(zp_reg_src, zp_reg_dest, zp_reg_tmp) {
     //Expose zero page registers to unpack macro via labels, so addresses can be loaded into these by setup macro
     .label reg_src = zp_reg_src
     .label reg_dest = zp_reg_dest
@@ -206,11 +206,11 @@
  * Changes:
  *   A and Y registers
  *
- * @param unpacker_ref label where `StdLib_Compression_Rle_Unpacker` macro was imported.
+ * @param unpacker_ref label where `StdLib_CompressionRle_Unpacker` macro was imported.
  * @param source_address source address of the compressed data.
  * @param destination_address destination address of decompressed data.
  **/
-.macro StdLib_Compression_Rle_Unpack(unpacker_ref, source_address, destination_address) {
+.macro StdLib_CompressionRle_Unpack(unpacker_ref, source_address, destination_address) {
     StdLib_Memory_LoadAddressToRegisters(source_address, unpacker_ref.reg_src)
     StdLib_Memory_LoadAddressToRegisters(destination_address, unpacker_ref.reg_dest)
     jsr unpacker_ref.unpack

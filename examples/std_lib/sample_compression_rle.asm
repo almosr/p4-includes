@@ -29,15 +29,15 @@
 *= $1010 "Code"
 start:
     //Unpack screen data directly to the screen
-    StdLib_Compression_Rle_Unpack(unpacker, compressed_color_data, SYSTEM_ADDRESS_SCREEN_MEMORY_COLORS)
-    StdLib_Compression_Rle_Unpack(unpacker, compressed_character_data, SYSTEM_ADDRESS_SCREEN_MEMORY_CHARACTERS)
+    StdLib_CompressionRle_Unpack(unpacker, compressed_color_data, SYSTEM_ADDRESS_SCREEN_MEMORY_COLORS)
+    StdLib_CompressionRle_Unpack(unpacker, compressed_character_data, SYSTEM_ADDRESS_SCREEN_MEMORY_CHARACTERS)
 
     //Wait indefinitely
     jmp *
 
     //Put unpacker routine here, unpacking will be jumping here
 unpacker:
-    StdLib_Compression_Rle_Unpacker(zp.src_reg, zp.dest_reg, zp.tmp_reg)
+    StdLib_CompressionRle_Unpacker(zp.src_reg, zp.dest_reg, zp.tmp_reg)
 
 //--------- Data section
 *= * "Data"
