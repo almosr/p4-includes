@@ -30,6 +30,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `kickass/functions.asm`, `Kickass_Functions_CheckMinimum`, `Kickass_Functions_CheckMaximum` - new functions for
   validating an integer or float argument against expected minimum/maximum value.
 - `kickass/instructions.asm`, `nopn` - pseudo-command for emitting specific number of `NOP` instructions to the code.
+- `kickass/instructions.asm`, `beql`, `bnel`, `bccl`, `bcsl`, `bpll`, `bmil`, `bvcl`, `bvsl` - pseudo-commands for
+  branching to a target address when it is out of normal range.
 - `kickass/list.asm`, `Kickass_List_FindMinimum`, `Kickass_List_FindMaximum` - new functions for finding minimum/maximum
   value in a list of integer or float values.
 - `kickass/list.asm`, `Kickass_List_RemoveMultiple` - new function for removing multiple items from a list.

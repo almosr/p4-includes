@@ -21,3 +21,107 @@
         nop
     }
 }
+
+/**
+ * Pseudo-command for BEQ branch to a long jump when target address is out of range.
+ * This instruction can be used instead of the native instruction when the distance
+ * for the branch is out of [-128, 127] range.
+ *
+ * @param target target address of the branching.
+ */
+.pseudocommand beql target {
+        bne !+
+        jmp target
+    !:
+}
+
+/**
+ * Pseudo-command for BNE branch to a long jump when target address is out of range.
+ * This instruction can be used instead of the native instruction when the distance
+ * for the branch is out of [-128, 127] range.
+ *
+ * @param target target address of the branching.
+ */
+.pseudocommand bnel target {
+        beq !+
+        jmp target
+    !:
+}
+
+/**
+ * Pseudo-command for BCC branch to a long jump when target address is out of range.
+ * This instruction can be used instead of the native instruction when the distance
+ * for the branch is out of [-128, 127] range.
+ *
+ * @param target target address of the branching.
+ */
+.pseudocommand bccl target {
+        bcs !+
+        jmp target
+    !:
+}
+
+/**
+ * Pseudo-command for BCS branch to a long jump when target address is out of range.
+ * This instruction can be used instead of the native instruction when the distance
+ * for the branch is out of [-128, 127] range.
+ *
+ * @param target target address of the branching.
+ */
+.pseudocommand bcsl target {
+        bcc !+
+        jmp target
+    !:
+}
+
+/**
+ * Pseudo-command for BPL branch to a long jump when target address is out of range.
+ * This instruction can be used instead of the native instruction when the distance
+ * for the branch is out of [-128, 127] range.
+ *
+ * @param target target address of the branching.
+ */
+.pseudocommand bpll target {
+        bmi !+
+        jmp target
+    !:
+}
+
+/**
+ * Pseudo-command for BMI branch to a long jump when target address is out of range.
+ * This instruction can be used instead of the native instruction when the distance
+ * for the branch is out of [-128, 127] range.
+ *
+ * @param target target address of the branching.
+ */
+.pseudocommand bmil target {
+        bpl !+
+        jmp target
+    !:
+}
+
+/**
+ * Pseudo-command for BVC branch to a long jump when target address is out of range.
+ * This instruction can be used instead of the native instruction when the distance
+ * for the branch is out of [-128, 127] range.
+ *
+ * @param target target address of the branching.
+ */
+.pseudocommand bvcl target {
+        bvs !+
+        jmp target
+    !:
+}
+
+/**
+ * Pseudo-command for BVS branch to a long jump when target address is out of range.
+ * This instruction can be used instead of the native instruction when the distance
+ * for the branch is out of [-128, 127] range.
+ *
+ * @param target target address of the branching.
+ */
+.pseudocommand bvsl target {
+        bvc !+
+        jmp target
+    !:
+}
