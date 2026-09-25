@@ -149,11 +149,12 @@
  * @param address target address of the word data, only works with absolute addressing.
  */
 .pseudocommand incw address {
-    .if (address.getType() != AT_ABSOLUTE) .error "Only absolute addressing can be used with INCW instruction"
+    .var type = address.getType()
+    .if (type != AT_ABSOLUTE && type != AT_ABSOLUTEX && type != AT_ABSOLUTEY) .error "Only absolute addressing modes can be used with INCW instruction"
 
         inc address
         bne !+
-        inc address.getValue() + 1
+        inc CmdArgument(address.getType(), address.getValue() + 1)
     !:
 }
 
@@ -167,10 +168,11 @@
  * @param address target address of the word data, only works with absolute addressing.
  */
 .pseudocommand decw address {
-    .if (address.getType() != AT_ABSOLUTE) .error "Only absolute addressing can be used with DECW instruction"
+    .var type = address.getType()
+    .if (type != AT_ABSOLUTE && type != AT_ABSOLUTEX && type != AT_ABSOLUTEY) .error "Only absolute addressing modes can be used with DECW instruction"
 
         lda address
         bne !+
-        dec address.getValue() + 1
+        dec CmdArgument(address.getType(), address.getValue() + 1)
     !:  dec address
 }
