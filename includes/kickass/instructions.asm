@@ -11,11 +11,11 @@
 /**
  * Pseudo-command for emitting specific number of `NOP` instructions to the code.
  *
- * @param argument requested number of `NOP` instructions (0 - 65535)
+ * @param count requested number of `NOP` instructions (0 - 65535)
  */
 .pseudocommand nopn count {
     .var number = count.getValue()
-    .eval Kickass_Functions_CheckRange("argument", number, 0, 65535)
+    .eval Kickass_Functions_CheckRange("count", number, 0, 65535)
 
     .for(var i = 0; i < number; i++) {
         nop
@@ -30,6 +30,8 @@
  * @param target target address of the branching.
  */
 .pseudocommand beql target {
+    .if (target.getType() != AT_ABSOLUTE) .error "Only absolute addressing can be used with BEQL instruction"
+
         bne !+
         jmp target
     !:
@@ -43,6 +45,8 @@
  * @param target target address of the branching.
  */
 .pseudocommand bnel target {
+    .if (target.getType() != AT_ABSOLUTE) .error "Only absolute addressing can be used with BNEL instruction"
+
         beq !+
         jmp target
     !:
@@ -56,6 +60,8 @@
  * @param target target address of the branching.
  */
 .pseudocommand bccl target {
+    .if (target.getType() != AT_ABSOLUTE) .error "Only absolute addressing can be used with BCCL instruction"
+
         bcs !+
         jmp target
     !:
@@ -69,6 +75,8 @@
  * @param target target address of the branching.
  */
 .pseudocommand bcsl target {
+    .if (target.getType() != AT_ABSOLUTE) .error "Only absolute addressing can be used with BCSL instruction"
+
         bcc !+
         jmp target
     !:
@@ -82,6 +90,8 @@
  * @param target target address of the branching.
  */
 .pseudocommand bpll target {
+    .if (target.getType() != AT_ABSOLUTE) .error "Only absolute addressing can be used with BPLL instruction"
+
         bmi !+
         jmp target
     !:
@@ -95,6 +105,8 @@
  * @param target target address of the branching.
  */
 .pseudocommand bmil target {
+    .if (target.getType() != AT_ABSOLUTE) .error "Only absolute addressing can be used with BMIL instruction"
+
         bpl !+
         jmp target
     !:
@@ -108,6 +120,8 @@
  * @param target target address of the branching.
  */
 .pseudocommand bvcl target {
+    .if (target.getType() != AT_ABSOLUTE) .error "Only absolute addressing can be used with BVCL instruction"
+
         bvs !+
         jmp target
     !:
@@ -121,6 +135,8 @@
  * @param target target address of the branching.
  */
 .pseudocommand bvsl target {
+    .if (target.getType() != AT_ABSOLUTE) .error "Only absolute addressing can be used with BVSL instruction"
+
         bvc !+
         jmp target
     !:
