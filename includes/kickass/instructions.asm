@@ -125,3 +125,36 @@
         jmp target
     !:
 }
+
+/**
+ * Pseudo-command for incrementing a word sized data by 1 that is stored
+ * on consecutive bytes in memory in little endian format (low, high).
+ *
+ * @param address target address of the word data, only works with absolute addressing.
+ */
+.pseudocommand incw address {
+    .if (address.getType() != AT_ABSOLUTE) .error "Only absolute addressing can be used with INCW instruction"
+
+        inc address
+        bne !+
+        inc address.getValue() + 1
+    !:
+}
+
+/**
+ * Pseudo-command for decrementing a word sized data by 1 that is stored
+ * on consecutive bytes in memory in little endian format (low, high).
+ *
+ * Changes:
+ *  A register
+ *
+ * @param address target address of the word data, only works with absolute addressing.
+ */
+.pseudocommand decw address {
+    .if (address.getType() != AT_ABSOLUTE) .error "Only absolute addressing can be used with DECW instruction"
+
+        lda address
+        bne !+
+        dec address.getValue() + 1
+    !:  dec address
+}

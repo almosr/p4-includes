@@ -7,6 +7,7 @@
 #importonce
 
 #import "kickass/functions.asm"
+#import "kickass/instructions.asm"
 #import "std_lib/memory.asm"
 #import "internal/logging.asm"
 #import "internal/std_lib/compression_rle.asm"
@@ -178,11 +179,9 @@
         tay
         sty	zp_reg_tmp          //Store length - 1
 
-        inc	zp_reg_src          //Values to copy start from next byte at source address
-        bne	!+
-        inc	zp_reg_src+1
+        incw zp_reg_src         //Values to copy start from next byte at source address
 
-    !:	lda	(zp_reg_src),y      //Copy values from source to destionation
+    !:	lda	(zp_reg_src),y      //Copy values from source to destination
         sta	(zp_reg_dest),y
         dey
         bpl	!-                  //Until we run out of length (copy between 0 and length - 1 in reverse)
